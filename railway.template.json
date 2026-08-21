@@ -1,0 +1,18 @@
+{
+  "name": "Llama Auth",
+  "description": "Deploy a Llama Auth Fastify API with PostgreSQL on Railway.",
+  "services": [
+    {
+      "name": "llama-auth-api",
+      "source": {
+        "repo": "llama-auth/llama-auth-railway-template"
+      }
+    },
+    {
+      "name": "Postgres",
+      "source": {
+        "image": "postgres:17"
+      }
+    }
+  ]
+}

@@ -1,19 +1,25 @@
 {
-  "name": "@llama-auth/railway-template",
-  "version": "0.1.0",
+  "name": "@llama-auth/api",
+  "version": "1.0.0",
   "private": true,
-  "description": "Railway deployment starter for Llama Auth",
+  "description": "Llama Auth v1 API - Fastify authentication backend",
   "type": "module",
-  "engines": {
-    "node": ">=22"
-  },
+  "engines": { "node": ">=20" },
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "dev": "node --watch src/server.js",
+    "db:migrate": "node src/migrate.js"
   },
   "dependencies": {
-    "@fastify/cors": "^11.0.0",
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/cors": "^11.0.1",
+    "@fastify/helmet": "^13.0.1",
+    "@fastify/jwt": "^9.1.0",
+    "@fastify/rate-limit": "^10.2.2",
     "fastify": "^5.4.0",
-    "pg": "^8.16.3"
+    "fastify-plugin": "^5.0.1",
+    "pg": "^8.16.3",
+    "bcryptjs": "^3.0.2",
+    "nanoid": "^5.1.5"
   }
 }

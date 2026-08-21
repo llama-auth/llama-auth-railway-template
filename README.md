@@ -1,44 +1,71 @@
-# Llama Auth — Railway Template
+# Llama Auth Fastify v1
 
-Production-oriented Railway starter for Llama Auth.
+Llama Auth v1 is a production-oriented authentication API foundation for Railway.
 
-## Stack
-- Node.js
-- Fastify
+## Included
+
+- Fastify 5 / Node.js 20+
 - PostgreSQL
-- Railway private networking
-- Health check endpoint
-- Environment-based configuration
+- Secure password hashing with bcrypt
+- Short-lived JWT access tokens
+- Rotating refresh sessions in an HttpOnly cookie
+- Signup / login / refresh / logout
+- Logout all sessions
+- Current-user endpoint
+- Change password
+- Delete account
+- API key creation/list/revocation
+- Helmet security headers
+- CORS
+- Rate limiting
+- Railway healthcheck
+- SQL migration
 
-## Deploy architecture
+## Local setup
 
-Llama Auth API
-        |
-        +---- PostgreSQL
+1. Copy `.env.example` to `.env`.
+2. Start PostgreSQL.
+3. Run `npm install`.
+4. Run `npm run db:migrate`.
+5. Run `npm start`.
 
-The database should be added as a Railway PostgreSQL service and the API should receive
-`DATABASE_URL` from the PostgreSQL service.
-
-## Required environment variables
-
-- `DATABASE_URL` — supplied by Railway PostgreSQL
-- `NODE_ENV` — `production`
-- `PORT` — Railway supplies this automatically; the app listens on `0.0.0.0`
-- `LLAMA_AUTH_SECRET` — generate a strong secret before production use
-
-## Health check
-
+Health:
 `GET /health`
 
-Expected response:
+## Railway
 
-```json
-{"ok":true,"service":"llama-auth"}
-```
+Create a Railway PostgreSQL service and connect its `DATABASE_URL` to the API service. Railway exposes `DATABASE_URL` and related variables for PostgreSQL services.
 
-## Important
+Set at minimum:
+- `DATABASE_URL`
+- `LLAMA_AUTH_JWT_SECRET`
+- `CORS_ORIGIN`
+- `NODE_ENV=production`
 
-This repository is the Railway deployment foundation. Replace the example API/auth logic
-with the production Llama Auth backend before publishing the public marketplace template.
+Run the migration once:
 
-Do not commit real secrets, OAuth credentials, database passwords, or signing keys.
+`npm run db:migrate`
+
+Then deploy the API.
+
+## Important production work still required for a public auth SaaS
+
+This v1 is the core backend foundation, not the complete Auth0/Clerk replacement.
+
+Before public production launch, add and test:
+- Email verification delivery
+- Password reset email delivery
+- OAuth providers and state/PKCE handling
+- MFA / TOTP / recovery codes
+- Passkeys / WebAuthn
+- Organizations / tenants
+- Roles and permissions
+- Audit logs
+- Account linking
+- Device/session management UI
+- Secret/key rotation
+- Background jobs
+- Abuse prevention and IP/device risk controls
+- Automated tests and migrations
+- Monitoring and alerting
+- Data retention/privacy controls
